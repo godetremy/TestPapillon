@@ -68,6 +68,8 @@ jobs:
           mkdir pr_repo/${{ github.event.pull_request.number }}
           cp -r dist/* pr_repo/${{ github.event.pull_request.number }}
           cd pr_repo
+          git config --global user.email "godetremy@free.fr"
+          git config --global user.name "Godet Rémy"
           git add .
           git commit -m "Build PR#${{ github.event.pull_request.number }}"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/godetremy/test.git
