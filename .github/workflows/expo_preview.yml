@@ -86,5 +86,33 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `<h1 align="center">🎉 La preview est prête 🎉</h1>\n\n![iOS](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/ios.png)\n\n<img\nsrc="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=ios&size=150x150&margin=5"\nalign="left"\n/>\nPour executer cette preview sur ton iPhone, tu auras besoin de l'application ExpoGo. Une fois installé, scanne ce QR code à l'aide de l'appareil photo ou entre cette url dans Expo `exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=ios`\n<br><br><br>\n<hr>\n\n ![Android](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/android.png)\n\n<img\nsrc="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android&size=150x150&margin=5"\nalign="left"\n/>\nPour executer cette preview sur ton téléphone, tu auras besoin de l'application ExpoGo. Télécharge la depuis le Google PlayStore, puis une fois installé, scanne ce QR code à l'aide du scanneur de QR code de ton mobile ou entre cette url dans Expo `exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android`\n<br><br><br>`
+              body: `
+                <h1 align="center">🎉 La preview est prête 🎉</h1>
+                
+                ![iOS](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/ios.png)
+                
+                <img
+                src="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=ios&size=150x150&margin=5"
+                align="left"
+                />
+                Pour exécuter cette preview sur ton iPhone, tu auras besoin de l'application ExpoGo.
+                Une fois installée, scanne ce QR code à l'aide de l'appareil photo ou entre cette url dans Expo :
+                \`exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=ios\`
+                
+               <br><br><br>
+                <hr>
+                
+                ![Android](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/android.png)
+                
+                <img
+                src="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android&size=150x150&margin=5"
+                align="left"
+                />
+                Pour exécuter cette preview sur ton téléphone, tu auras besoin de l'application ExpoGo.
+                Télécharge-la depuis le Google PlayStore, puis une fois installée, scanne ce QR code à l'aide du scanneur de QR code
+                de ton mobile ou entre cette url dans Expo :
+                \`exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android\`
+                
+                <br><br><br>
+              `
             });
