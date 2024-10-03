@@ -65,6 +65,7 @@ jobs:
 
       - name: Transfering the build to PR repository
         run: |
+          mkdir pr_repo/${{ github.event.pull_request.number }}
           cp -r dist/* pr_repo/${{ github.event.pull_request.number }}
           cd pr_repo
           git add .
