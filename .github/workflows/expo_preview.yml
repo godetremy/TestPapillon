@@ -72,7 +72,7 @@ jobs:
           git config --global user.name "Godet Rémy"
           git add .
           git commit -m "Build PR#${{ github.event.pull_request.number }}"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/godetremy/test.git
+          git push https://${{ secrets.GH_TOKEN }}@github.com/godetremy/test.git
           cd ..
 
       - name: Generating QR code
