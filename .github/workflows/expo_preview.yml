@@ -26,7 +26,7 @@ jobs:
           mkdir dist/expo
 
       - name: Export for ios
-        run: expo export --dev --platform ios --output-dir build_ios
+        run: npx expo export --dev --platform ios --output-dir build_ios
 
       - name: Move iOS AppEntry
         run: |
@@ -37,7 +37,7 @@ jobs:
           cd ..
 
       - name: Export for android
-        run: expo export --dev --platform android --output-dir build_android
+        run: npx expo export --dev --platform android --output-dir build_android
 
       - name: Move Android AppEntry
         run: |
