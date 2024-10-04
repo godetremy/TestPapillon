@@ -1,5 +1,9 @@
 name: expo_preview.yml
-on: pull_request
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   preview:
@@ -12,13 +16,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache Expo files
+        uses: actions/cache@v3
+        with:
+          path: |
+            .expo
+            .expo-shared
+          key: ${{ runner.os }}-expo-${{ hashFiles('package.json') }}
+          restore-keys: |
+           ${{ runner.os }}-expo-
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 18.x
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
+        if: steps.cache_node_modules.outputs.cache-hit != 'true'
 
       - name: Create dist folder
         run: |
@@ -26,14 +49,13 @@ jobs:
           mkdir dist/expo
 
       - name: Export AppEntry
-        run: npx expo export --dev --platform ios --output-dir build_ios & npx expo export --dev --platform android --output-dir build_android
+        run: npx expo export --dev --platform ios --output-dir build_ios & ; npx expo export --dev --platform android --output-dir build_android & ; wait
 
       - name: Move iOS AppEntry
         run: |
           cd build_ios
           PATH_TO_ENTRY="$(find . | grep 'AppEntry.js')"
           mv $PATH_TO_ENTRY ./../dist/expo/AppEntry_ios.js
-          echo $PATH_TO_ENTRY
           cd ..
 
       - name: Move Android AppEntry
@@ -41,14 +63,11 @@ jobs:
           cd build_android
           PATH_TO_ENTRY="$(find . | grep 'AppEntry.js')"
           mv $PATH_TO_ENTRY ./../dist/expo/AppEntry_android.js
-          echo $PATH_TO_ENTRY
           cd ..
 
       - name: Move assets
         run: |
-          cd build_ios
-          mv assets ./../dist/assets
-          cd ..
+          mv build_ios/assets ./../dist/assets
 
       - name: Copy app.json
         run: cp app.json dist/app.json
