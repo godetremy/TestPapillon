@@ -2,7 +2,7 @@
 export const defaultTabs = [
   {
     tab: "Home",
-    label: "Accueil",
+    label: "MICHEL",
     description: "L'essentiel de Papillon",
     icon: require("@/../assets/lottie/tab_home.json"),
     enabled: true,
