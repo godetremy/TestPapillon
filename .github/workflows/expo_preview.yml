@@ -67,7 +67,7 @@ jobs:
 
       - name: Move assets
         run: |
-          mv build_ios/assets ./../dist/assets
+          mv build_ios/assets dist/assets
 
       - name: Copy app.json
         run: cp app.json dist/app.json
