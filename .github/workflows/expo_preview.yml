@@ -22,8 +22,9 @@ jobs:
               repo: context.repo.repo,
               body: `
               <h1 align="center">🎉 La preview est prête 🎉</h1>
-               
-              ![iOS](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/ios.png)
+              
+              ![iOS](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/ios_light.png#gh-light-mode-only)
+              ![iOS](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/ios_dark.png#gh-dark-mode-only)
               
               <img
               src="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=ios&size=150x150&margin=5"
@@ -36,7 +37,8 @@ jobs:
               <br><br><br>
               <hr>
               
-              ![Android](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/android.png)
+              ![Android](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/android_light.png#gh-light-mode-only)
+              ![Android](https://raw.githubusercontent.com/PapillonApp/chat-themes/refs/heads/main/.github/assets/android_dark.png#gh-dark-mode-only)
               
               <img
               src="http://api.qrserver.com/v1/create-qr-code/?data=exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android&size=150x150&margin=5"
@@ -47,6 +49,6 @@ jobs:
               de ton mobile ou entre cette url dans Expo :
               \`exp://expo.godetremy.com/${{ github.event.pull_request.number }}?platform=android\`
               
-              <br><br><br>
+              <br>
               `
             });
