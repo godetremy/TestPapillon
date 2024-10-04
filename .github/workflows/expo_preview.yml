@@ -9,6 +9,72 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Create dist folder
+        run: |
+          mkdir dist
+          mkdir dist/expo
+
+      - name: Export for ios
+        run: npx expo export --dev --platform ios --output-dir build_ios
+
+      - name: Move iOS AppEntry
+        run: |
+          cd build_ios
+          PATH_TO_ENTRY="$(find . | grep 'AppEntry.js')"
+          mv $PATH_TO_ENTRY ./../dist/expo/AppEntry_ios.js
+          echo $PATH_TO_ENTRY
+          cd ..
+
+      - name: Export for android
+        run: npx expo export --dev --platform android --output-dir build_android
+
+      - name: Move Android AppEntry
+        run: |
+          cd build_android
+          PATH_TO_ENTRY="$(find . | grep 'AppEntry.js')"
+          mv $PATH_TO_ENTRY ./../dist/expo/AppEntry_android.js
+          echo $PATH_TO_ENTRY
+          cd ..
+
+      - name: Move assets
+        run: |
+          cd build_ios
+          mv assets ./../dist/assets
+          cd ..
+
+      - name: Copy app.json
+        run: cp app.json dist/app.json
+
+      - name: Cleanup
+        run: rm -rf build_ios build_android
+
+      - name: Cloning the PR repository
+        run: |
+          git clone "https://github.com/godetremy/test.git" pr_repo
+
+      - name: Transfering the build to PR repository
+        run: |
+          mkdir pr_repo/${{ github.event.pull_request.number }}
+          cp -r dist/* pr_repo/${{ github.event.pull_request.number }}
+          cd pr_repo
+          git config --global user.email "godetremy@free.fr"
+          git config --global user.name "Godet Rémy"
+          git add .
+          git commit -m "Build PR#${{ github.event.pull_request.number }}"
+          git push https://${{ secrets.GH_TOKEN }}@github.com/godetremy/test.git
+          cd ..
+
       - name: Commenting on PR
         uses: actions/github-script@v4
         with:
