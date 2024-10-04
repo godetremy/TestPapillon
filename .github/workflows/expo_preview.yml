@@ -49,7 +49,7 @@ jobs:
           mkdir dist/expo
 
       - name: Export AppEntry
-        run: npx expo export --dev --platform ios --output-dir build_ios & ; npx expo export --dev --platform android --output-dir build_android & ; wait
+        run: npx expo export --dev --platform ios --output-dir build_ios & npx expo export --dev --platform android --output-dir build_android
 
       - name: Move iOS AppEntry
         run: |
